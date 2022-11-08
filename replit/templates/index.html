@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Control</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <center>
+      <img alt="screen" id="screen" src="/static/image.png">
+    </center>
+  </body>
+  <script>
+    element = document.getElementById("screen")
+
+    async function updater() {
+      const promise = await fetch("/sync")
+      const blob = await promise.blob() 
+
+      var img = URL.createObjectURL(blob)
+      document.getElementById('screen').setAttribute('src', img);
+    }
+
+    window.onload = setInterval(updater, 50);
+  </script>
+</html>
